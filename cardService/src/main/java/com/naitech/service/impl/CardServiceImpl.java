@@ -54,13 +54,16 @@ public class CardServiceImpl implements CardService {
 		VaultResponse vaultResponse = null;
 		try {
 			vaultResponse = objectMapper.readValue(response.getBody().toString(), VaultResponse.class);
+			if(vaultResponse != null && card != null) {
+				card.setNumber(vaultResponse.getData().getCiphertext());
+				cardDao.save(card);
+			}
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		card.setNumber(vaultResponse.getData().getCiphertext());
-		cardDao.save(card);
+		
 	}
 
 	@Override
