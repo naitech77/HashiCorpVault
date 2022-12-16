@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-public class VaultResponse {
+public class VaultResponseEncryption {
 
 	@Getter
 	@Setter
@@ -25,7 +25,7 @@ public class VaultResponse {
 	private int lease_duration;
 	@Getter
 	@Setter
-	private Data data;
+	private DataEncryption data;
 	@Getter
 	@Setter
 	@JsonIgnore
