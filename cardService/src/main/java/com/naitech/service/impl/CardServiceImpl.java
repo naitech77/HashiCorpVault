@@ -94,7 +94,10 @@ public class CardServiceImpl implements CardService {
 		try {
 			vaultResponse = objectMapper.readValue(response.getBody().toString(), VaultResponseDecryption.class);
 			if(vaultResponse != null) {
-				card.setNumber(vaultResponse.getData().getPlaintext());
+				String numberCardBase64 = vaultResponse.getData().getPlaintext();
+				byte[] decodedBytes = Base64.getDecoder().decode(numberCardBase64);
+				String numberCardBase64Decoded = new String(decodedBytes);
+				card.setNumber(numberCardBase64Decoded);
 			}
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
@@ -103,7 +106,4 @@ public class CardServiceImpl implements CardService {
 		}
 		return card;
 	}
-	
-	
-
 }
